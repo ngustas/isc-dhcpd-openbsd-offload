@@ -35,7 +35,7 @@ make patch
 env SUBPACKAGE=-main make subpackage
 ```
 
-The [p6 release](https://github.com/ngustas/dhcpd/releases/tag/openbsd-7.9-p6)
+The [p6 release](https://github.com/ngustas/isc-dhcpd-openbsd-offload/releases/tag/openbsd-7.9-p6)
 includes a rebuilt **OpenBSD 7.9 amd64** server package and SHA-256 checksums.
 Do not install that binary on other releases or architectures.
 
