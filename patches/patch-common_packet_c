@@ -1,0 +1,24 @@
+--- common/packet.c.orig
++++ common/packet.c
+@@ -256,0 +257,15 @@
++  return decode_udp_ip_header_csum(interface, buf, bufix, from, buflen,
++                                  rbuflen, 1, csum_ready);
++}
++
++/* Non-zero *_csum_ready arguments request software checksum validation.
++ * A caller may skip either checksum only when its receive API validates it.
++ * Packet length checks remain unconditional.
++ */
++ssize_t
++decode_udp_ip_header_csum(struct interface_info *interface,
++                         unsigned char *buf, unsigned bufix,
++                         struct sockaddr_in *from, unsigned buflen,
++                         unsigned *rbuflen, int ip_csum_ready,
++                         int udp_csum_ready)
++{
+@@ -342 +357 @@
+-  if (wrapsum (checksum (buf + bufix, ip_len, 0))) {
++  if (ip_csum_ready && wrapsum (checksum (buf + bufix, ip_len, 0))) {
+@@ -368 +383 @@
+-  if (udp.uh_sum && csum_ready) {
++  if (udp.uh_sum && udp_csum_ready) {

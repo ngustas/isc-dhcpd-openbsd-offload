@@ -1,0 +1,7 @@
+--- includes/dhcpd.h.orig
++++ includes/dhcpd.h
+@@ -3116,0 +3117,4 @@
++ssize_t decode_udp_ip_header_csum(struct interface_info *, unsigned char *,
++                                  unsigned, struct sockaddr_in *,
++                                  unsigned, unsigned *, int, int);
++

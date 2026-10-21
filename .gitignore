@@ -1,0 +1,6 @@
+__pycache__/
+.ruff_cache/
+dhcp-*.tar.gz
+upstream/
+patched/
+dist/

@@ -1,0 +1,29 @@
+--- common/bpf.c.orig
++++ common/bpf.c
+@@ -35,0 +36,4 @@
++#ifdef __OpenBSD__
++#include <sys/param.h>
++#include <sys/mbuf.h>
++#endif
+@@ -91,0 +96,3 @@
++#ifdef __OpenBSD__
++	u_int dirfilt = BPF_DIRECTION_OUT;
++#endif
+@@ -117,0 +125,7 @@
++
++#ifdef __OpenBSD__
++	/* Ignore our own relay replies before transmit checksum completion. */
++	if (ioctl(sock, BIOCSDIRFILT, &dirfilt) < 0)
++		log_fatal("Can't filter outgoing BPF packets on %s: %m",
++		          info->name);
++#endif
+@@ -531,0 +546,7 @@
++#if defined(__OpenBSD__) && OpenBSD >= 202404
++		/* BPF carries the kernel's checksum-offload results. */
++		offset = decode_udp_ip_header_csum(interface, interface->rbuf,
++		    interface->rbuf_offset, from, hdr.bh_caplen, &paylen,
++		    (hdr.bh_csumflags & M_IPV4_CSUM_IN_OK) == 0,
++		    (hdr.bh_csumflags & M_UDP_CSUM_IN_OK) == 0);
++#else
+@@ -534,0 +556 @@
++#endif
